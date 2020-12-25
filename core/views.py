@@ -24,7 +24,7 @@ def add_weather(request):
                 temp_avg = weather_objs.aggregate(AVG('temp'))
                 hum_avg = weather_objs.aggregate(AVG('hum'))
                 start_date = weather_objs.first().created
-                end_date = weather_objs.first().created
+                end_date = weather_objs.last().created
                 ids = Weather.objects.values_list('id',flat=True)
                 weather_ids=json.dumps(ids)
                 Summary.objects.create(avg_temp=temp_avg,avg_hum=hum_avg,start_date=start_date,end_date=end_date,list_ids=weather_ids)
